@@ -15,6 +15,39 @@ struct ContentView: View {
     
     let units = ["meters", "kilometers", "feet", "yards", "miles"]
     
+    var result: Double {
+        var inputMeters = 0.0
+        var outputMeters = 0.0
+        
+        switch inputUnit {
+        case "meters":
+            inputMeters = inputValue
+        case "kilometers":
+            inputMeters = inputValue * 1000
+        case "feet":
+            inputMeters = inputValue * 0.3048
+        case "yards":
+            inputMeters = inputValue * 0.9144
+        default:
+            inputMeters = inputValue * 1609.34
+        }
+        
+        switch outputUnit {
+        case "meters":
+            outputMeters = inputMeters
+        case "kilometers":
+            outputMeters = inputMeters / 1000
+        case "feet":
+            outputMeters = inputMeters / 0.3048
+        case "yards":
+            outputMeters = inputMeters / 0.9144
+        default:
+            outputMeters = inputMeters / 1609.34
+        }
+        
+        return outputMeters
+    }
+    
     var body: some View {
         NavigationStack {
             Form {
@@ -43,7 +76,7 @@ struct ContentView: View {
                 }
                 
                 Section("Result of conversion") {
-                    Text("")
+                    Text(result, format: .number)
                 }
             }
             .navigationTitle("Unit Conversions")
