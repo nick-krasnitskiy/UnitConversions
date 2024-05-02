@@ -11,6 +11,7 @@ struct ContentView: View {
     @State private var inputUnit = "meters"
     @State private var outputUnit = "meters"
     @State private var inputValue = 0.0
+    @FocusState private var fieldSsActive: Bool
     
     let units = ["meters", "kilometers", "feet", "yards", "miles"]
     
@@ -38,6 +39,7 @@ struct ContentView: View {
                 Section("Enter a value") {
                     TextField("Input value", value: $inputValue, format: .number)
                         .keyboardType(.decimalPad)
+                        .focused($fieldSsActive)
                 }
                 
                 Section("Result of conversion") {
@@ -45,6 +47,13 @@ struct ContentView: View {
                 }
             }
             .navigationTitle("Unit Conversions")
+            .toolbar {
+                if fieldSsActive {
+                    Button("Done") {
+                        fieldSsActive = false
+                    }
+                }
+            }
         }
     }
 }
